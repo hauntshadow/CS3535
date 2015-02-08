@@ -6,14 +6,10 @@ import numpy as np
 def main(input_filename):
     audiofile = audio.LocalAudioFile("lateralus.mp3")
     segments = audiofile.analysis.segments
-    collect = audio.AudioQuantumList()
-    pitdist = np.empty([len(segments), len(segments)])
-    timdist = np.empty([len(segments), len(segments)])
-    for s in segments:
-        for t in segments:
-            timdist[s][t] = distance.euclidean(s.timbre,t.timbre)
-            pitdist[s][t] = distance.euclidean(s.pitches,t.pitches)
-
+    pits = np.asarray(segments.pitches).astype(float)
+    tims = np.asarray(segments.timbre).astype(float)
+    pitdist = distance.cdist(pits, pits, 'euclidean')
+    timdist = distance.cdist(tims, tims, 'euclidean')
     plt.plot(pitdist) 
     plt.plot(timdist)   
         
