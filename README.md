@@ -6,4 +6,6 @@ This code simply takes the limp example from EchoNest's examples, and changes it
 each beat has the last tatum taken out of it.  The original EchoNest example had the last
 beat (or group of tatums) taken out of each bar.
 ##one_segment
-This code simply takes each bar and gets the first segment out of each bar in a song.
+This code simply takes each bar and gets the first segment out of each bar in a song. This
+code was also an EchoNest example.  However, this code was modified to get the first segment
+out of each bar, instead of retrieving the first beat out of each bar.
