@@ -20,7 +20,7 @@ We want to graph the average tempo for songs grouped by genre, and sorted by yea
  This answers both question 2 and question 3: How do we get the genre for a particular song?  How do we get the year for a song?
  The following code demonstrates how to use eyeD3 and python to get the genre and year for a local song:
  
- '''python
+ ```python
  import eyed3
  audiofile = eyed3.load("path to the local song")
  #Prints the date that is considered most likely to be the desired date.
@@ -28,7 +28,7 @@ We want to graph the average tempo for songs grouped by genre, and sorted by yea
  #Prints the name of the audiofile's genre, as well as the decimal value associated with it.
  print audiofile.tag._getGenre().name
  print audiofile.tag._getGenre().id
- '''
+ ```
  
  [EchoNest API]: http://developer.echonest.com/docs/v4/track.html
  [eyeD3 API]: http://eyed3.nicfit.net/api/modules.html
