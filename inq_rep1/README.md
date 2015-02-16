@@ -1,9 +1,11 @@
 #Problem
 We want to graph the average tempo for songs grouped by genre, and sorted by year.
+
 #Questions
 1. How do we get the tempo for a song?
 2. How do we get the genre for a song?
 3. How do we get the year for a song?
+
 #Resources
 1. [EchoNest API]
 2. 
