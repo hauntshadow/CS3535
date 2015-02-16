@@ -11,7 +11,7 @@ We want to graph the average tempo for songs grouped by genre, and sorted by yea
 2. [eyeD3 API]
 
 ####Mini-abstract and relevance of the [EchoNest Remix API]
- The [EchoNest Remix API] is the documentation for the module that allows us to extract statistics for a song.  This API has every detail about the EchoNest project that is available in the EchoNest package for Python.  One of these statistics is the tempo throughout a song.  This allows us to answer Question 1: How do we get the tempo for a song?
+ The [EchoNest Remix API] is the documentation for the module that allows us to extract statistics for a song.  This API has every detail about the EchoNest Remix project that is available in EchoNest's Remix package for Python.  One of these statistics is the tempo throughout a song.  This allows us to answer Question 1: How do we get the tempo for a song?
  
  The following code shows how to get the tempo from a local song:
  ```python
