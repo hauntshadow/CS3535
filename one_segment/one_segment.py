@@ -3,12 +3,23 @@
 """
 one.py
 
-Digest only the first segment of every beat.
+Digest only the first beat of every bar.
 
 By Ben Lacker, 2009-02-18.
 
-Edited by Chris Smith, 2015-02-05
 """
+
+'''
+one_segment.py
+
+Author: Chris Smith, 02-05-2015
+
+Changes made to original one.py:
+
+    - Changes made to take the first segment out of every beat.
+    - Does not take the first bar from every beat anymore.
+
+'''
 import echonest.remix.audio as audio
 
 usage = """
@@ -21,8 +32,15 @@ Example:
 
 def main(input_filename, output_filename):
     audiofile = audio.LocalAudioFile(input_filename)
+    '''
+    bars = audiofile.analysis.bars
+    '''
     beats = audiofile.analysis.beats
     collect = audio.AudioQuantumList()
+    '''
+    for bar in bars:
+        collect.append(bar.children()[0])
+    '''
     for b in beats:
         collect.append(b.children()[0])
     out = audio.getpieces(audiofile, collect)
