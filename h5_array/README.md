@@ -76,7 +76,25 @@ Using h5_seg_to_array.py requires these packages:
 
 ###Example Use
 
+To use this program (assuming you have the previously mentioned packages), you can do
+the following to get and save the array in a file:
 
+```python
+import h5_seg_to_array as h
+#Get the files, generate the array, and store the array in the file
+a = h.h5_files_to_np_array("path to the directory with .h5 files in it", "destination filename")
+#Print out the second segment in the dataset
+print a[1]
+```
+
+To load the file, you need to do the following:
+```python
+import h5_seg_to_array as h
+#Load the file into a variable
+loadedArray = h.open("filename that holds the numpy array")
+#Print out the second segment's duration in the dataset
+print loadedArray[1][26]
+```
 
 [Numpy]: https://pypi.python.org/pypi/numpy#downloads
 
@@ -85,3 +103,4 @@ Using h5_seg_to_array.py requires these packages:
 [Infinite Jukebox]: http://labs.echonest.com/Uploader/index.html
 
 [Million Song Dataset]: http://labrosa.ee.columbia.edu/millionsong/
+
