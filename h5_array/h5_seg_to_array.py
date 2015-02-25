@@ -1,11 +1,11 @@
 """
 h5_seg_to_array.py
 
-Usage: h5_seg_to_array.py <directory> <filename>
+Usage: In the functions following this, the parameters are described as follows:
 
-<directory> is the directory to search
+dir: the directory to search
 
-<filename> is the filename for saving the results to
+filename: the filename for saving/loading the results to/from
 
 Program that parses all .h5 files in the passed in directory and subdirectories,
 getting the segment arrays from each .h5 file and putting them into a 
