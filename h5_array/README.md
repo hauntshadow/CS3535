@@ -34,7 +34,7 @@ or any subdirectories.  Then, we set the counter to 0, which counts the number o
 an empty list for the array of segment data.
 
 Afterwards, we do this code to get the data, create the array for the segment, and append that array to the list:
-'''python
+```python
 for file in list:
         song = getters.open_h5_file_read(file)
         seg_append = np.array(getters.get_segments_pitches(song))
@@ -51,7 +51,7 @@ for file in list:
         seg_array.extend(seg_append.tolist())
         song.close()
         num_done = num_done + 1
-'''
+```
 
 We open the file, then put pitch values in a new array (indices 0-11), timbre values in 12-23, max loudness
 in index 24, and starting loudness in index 25.  However, [hdf5_getters] does not have a function that returns the
