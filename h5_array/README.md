@@ -103,6 +103,7 @@ The following are links to the information that I found useful in constructing t
 1. [Numpy Documentation] - This documentation helped to understand the available functions in Numpy.
 2. [Million Song Dataset] - This documentation helped to understand the format and available functions for the Million Song Dataset.
 3. [Infinite Jukebox] - This resource compares segments of songs with a given formula.  This formula was a basis for the extracted data to be stored in the array.
+4. [Stack Overflow] - This resource helped my understanding of how to access a file by the full path in Python.
 
 [Numpy]: https://pypi.python.org/pypi/numpy#downloads
 
@@ -113,3 +114,5 @@ The following are links to the information that I found useful in constructing t
 [Million Song Dataset]: http://labrosa.ee.columbia.edu/millionsong/
 
 [Numpy Documentation]: http://docs.scipy.org/doc/numpy/genindex.html
+
+[Stack Overflow]: http://stackoverflow.com/questions/17730173/python-cant-get-full-path-name-of-file
