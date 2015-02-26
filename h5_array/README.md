@@ -63,6 +63,16 @@ After the list is completed, we convert the list into a [Numpy] array, and dump 
 
 There is also an open function that takes a filename as a parameter.  This function calls the load function on the filename [3], and returns the [Numpy] array that the load function returns.
 
+###References
+
+The following are links to the information that I found useful in constructing this module:
+
+[1] Stack Overflow: http://stackoverflow.com/questions/17730173/python-cant-get-full-path-name-of-file
+
+[2] Million Song Dataset: http://labrosa.ee.columbia.edu/millionsong/code
+
+[3] Numpy Documentation: http://docs.scipy.org/doc/numpy/genindex.html
+
 ###Package Dependencies
 
 Using h5_seg_to_array.py requires these packages:
@@ -93,14 +103,6 @@ loadedArray = h.open("filename that holds the numpy array")
 print loadedArray[1][26]
 ```
 
-###References
-
-The following are links to the information that I found useful in constructing this module:
-
-[1] Stack Overflow: http://stackoverflow.com/questions/17730173/python-cant-get-full-path-name-of-file
-[2] Million Song Dataset: http://labrosa.ee.columbia.edu/millionsong/code
-[3] Numpy Documentation: http://docs.scipy.org/doc/numpy/genindex.html
- 
 
 [Numpy]: https://pypi.python.org/pypi/numpy#downloads
 
