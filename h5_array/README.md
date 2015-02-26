@@ -96,6 +96,14 @@ loadedArray = h.open("filename that holds the numpy array")
 print loadedArray[1][26]
 ```
 
+###References
+
+The following are links to the information that I found useful in constructing this module:
+
+1. [Numpy Documentation] - This documentation helped to understand the available functions in Numpy.
+2. [Million Song Dataset] - This documentation helped to understand the format and available functions for the Million Song Dataset.
+3. [Infinite Jukebox] - This resource compares segments of songs with a given formula.  This formula was a basis for the extracted data to be stored in the array.
+
 [Numpy]: https://pypi.python.org/pypi/numpy#downloads
 
 [hdf5_getters]: https://github.com/tbertinmahieux/MSongsDB/blob/master/PythonSrc/hdf5_getters.py
@@ -104,3 +112,4 @@ print loadedArray[1][26]
 
 [Million Song Dataset]: http://labrosa.ee.columbia.edu/millionsong/
 
+[Numpy Documentation]: http://docs.scipy.org/doc/numpy/genindex.html
