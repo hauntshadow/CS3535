@@ -30,7 +30,7 @@ be helpful.
 
 The h5_files_to_np_array(dir, filename) function is the function that gets the segments and stores the data.
 The function starts off by calling get_h5_files(dir) to get the list of .h5 files that are in the directory 'dir',
-or any subdirectories[1].  Then, we set the counter to 0, which counts the number of files parsed, and initialize
+or any subdirectories [1].  Then, we set the counter to 0, which counts the number of files parsed, and initialize
 an empty list for the array of segment data.
 
 Afterwards, we do this code to get the data, create the array for the segment, and append that array to the list:
@@ -59,9 +59,9 @@ segments' durations.  Therefore, we must get the starting times for each segment
 Then, we put each segment duration at index 26, and extend the list to include the new segments' data that were just created.
 We then close the current song, increase the counter by 1, and repeat that whole process for each .h5 file in the list.  Every 500th .h5 file parsed results in printing a statement saying that the number of files parsed is num_dome out of len(list).
 
-After the list is completed, we convert the list into a [Numpy] array, and dump that array into a file called 'filename' (the parameter passed in) using the dump function [3].  We print the number of segments in the array, and return the array.
+After the list is completed, we convert the list into a [Numpy] array, and dump a pickle of that array into a file called 'filename' (the parameter passed in) using the dump function [3].  We print the number of segments in the array, and return the array.
 
-There is also an open function that takes a filename as a parameter.  This function calls the load function on the filename [3], and returns the [Numpy] array that the load function returns.
+There is also an open function that takes a filename as a parameter.  This function calls the load function on the filename [4], and returns the [Numpy] array that the load function returns.
 
 ###References
 
@@ -69,10 +69,11 @@ The following are links to the information that I found useful in constructing t
 
 [1] Stack Overflow: http://stackoverflow.com/questions/17730173/python-cant-get-full-path-name-of-file
 
-[2] Million Song Dataset: http://labrosa.ee.columbia.edu/millionsong/code
+[2] Million Song Dataset: http://labrosa.ee.columbia.edu/millionsong/pages/code
 
-[3] Numpy Documentation: http://docs.scipy.org/doc/numpy/genindex.html
+[3] Numpy Dump Function: http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.dump.html
 
+[4] Numpy Load Function: http://docs.scipy.org/doc/numpy/reference/generated/numpy.load.html#numpy.load
 ###Package Dependencies
 
 Using h5_seg_to_array.py requires these packages:
@@ -109,3 +110,5 @@ print loadedArray[1][26]
 [hdf5_getters]: https://github.com/tbertinmahieux/MSongsDB/blob/master/PythonSrc/hdf5_getters.py
 
 [Infinite Jukebox]: http://labs.echonest.com/Uploader/index.html
+
+[Million Song Dataset]: http://labrosa.ee.columbia.edu/millionsong
