@@ -30,7 +30,7 @@ be helpful.
 
 The h5_files_to_np_array(dir, filename) function is the function that gets the segments and stores the data.
 The function starts off by calling get_h5_files(dir) to get the list of .h5 files that are in the directory 'dir',
-or any subdirectories.  Then, we set the counter to 0, which counts the number of files parsed, and initialize
+or any subdirectories[1].  Then, we set the counter to 0, which counts the number of files parsed, and initialize
 an empty list for the array of segment data.
 
 Afterwards, we do this code to get the data, create the array for the segment, and append that array to the list:
@@ -53,18 +53,15 @@ for file in list:
         num_done = num_done + 1
 ```
 
-We open the file, then put pitch values in a new array (indices 0-11), timbre values in 12-23, max loudness
-in index 24, and starting loudness in index 25.  However, [hdf5_getters] does not have a function that returns the
-segments' durations.  Therefore, we must get the starting times for each segment, and if it's not the last segment, make
-the segment's duration equal to the next segment's start time minus the current segment's start time.  Then, the final
-segment has its value set to the duration of the song minus the segment's start time.
+We open the file, then put pitch values in a new array (indices 0-11) using get_segments_pitches [2], timbre values in 12-23 using get_segments_timbres [2], max loudness in index 24 using get_segments_loudness_max [2], and starting loudness in index 25 using get_segments_loudness_start [2].  However, [hdf5_getters] does not have a function that returns the
+segments' durations.  Therefore, we must get the starting times for each segment using get_segments_start [2], and if it's not the last segment, make the segment's duration (received by using get_duration [2]) equal to the next segment's start time minus the current segment's start time.  Then, the final segment has its value set to the duration of the song minus the segment's start time.
 
 Then, we put each segment duration at index 26, and extend the list to include the new segments' data that were just created.
 We then close the current song, increase the counter by 1, and repeat that whole process for each .h5 file in the list.  Every 500th .h5 file parsed results in printing a statement saying that the number of files parsed is num_dome out of len(list).
 
-After the list is completed, we convert the list into a [Numpy] array, and dump that array into a file called 'filename' (the parameter passed in).  We print the number of segments in the array, and return the array.
+After the list is completed, we convert the list into a [Numpy] array, and dump that array into a file called 'filename' (the parameter passed in) using the dump function [3].  We print the number of segments in the array, and return the array.
 
-There is also an open function that takes a filename as a parameter.  This function calls [Numpy].load on the filename, and returns the [Numpy] array that the load function returns.
+There is also an open function that takes a filename as a parameter.  This function calls the load function on the filename [3], and returns the [Numpy] array that the load function returns.
 
 ###Package Dependencies
 
@@ -100,19 +97,13 @@ print loadedArray[1][26]
 
 The following are links to the information that I found useful in constructing this module:
 
-1. [Numpy Documentation] - This documentation helped to understand the available functions in Numpy.
-2. [Million Song Dataset] - This documentation helped to understand the format and available functions for the Million Song Dataset.
-3. [Infinite Jukebox] - This resource compares segments of songs with a given formula.  This formula was a basis for the extracted data to be stored in the array.
-4. [Stack Overflow] - This resource helped my understanding of how to access a file by the full path in Python.
+[1] Stack Overflow: http://stackoverflow.com/questions/17730173/python-cant-get-full-path-name-of-file
+[2] Million Song Dataset: http://labrosa.ee.columbia.edu/millionsong/code
+[3] Numpy Documentation: http://docs.scipy.org/doc/numpy/genindex.html
+ 
 
 [Numpy]: https://pypi.python.org/pypi/numpy#downloads
 
 [hdf5_getters]: https://github.com/tbertinmahieux/MSongsDB/blob/master/PythonSrc/hdf5_getters.py
 
 [Infinite Jukebox]: http://labs.echonest.com/Uploader/index.html
-
-[Million Song Dataset]: http://labrosa.ee.columbia.edu/millionsong/
-
-[Numpy Documentation]: http://docs.scipy.org/doc/numpy/genindex.html
-
-[Stack Overflow]: http://stackoverflow.com/questions/17730173/python-cant-get-full-path-name-of-file
