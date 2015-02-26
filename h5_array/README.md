@@ -113,6 +113,6 @@ The following are links to the information that I found useful in constructing t
 
 [Million Song Dataset]: http://labrosa.ee.columbia.edu/millionsong/
 
-[Numpy Documentation]: http://docs.scipy.org/doc/numpy/genindex.html
+[Numpy Documentation]: http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.dump.html
 
 [Stack Overflow]: http://stackoverflow.com/questions/17730173/python-cant-get-full-path-name-of-file
