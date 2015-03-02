@@ -38,11 +38,13 @@ the classes in this module is the Counter class.  This class is used for
 totalling up the number of occurances of each item in a collection of data.
 The dataset must be iterable to be used with Counter.  There are many methods
 that can be used with a Counter, including, but not limited to, methods that:
+```python
 -Get the "n" most common elements
 -Listing each element that has at least 1 occurance
 -Listing unique elements
 -Totalling the elements in the Counter
- 
+```
+
 The following code demonstrates how to use the Counter object in Python:
  
  ```python
@@ -58,3 +60,4 @@ The following code demonstrates how to use the Counter object in Python:
  
  [EchoNest Remix API]: http://echonest.github.io/remix/apidocs/
  [Python Counter objects]: https://docs.python.org/3/library/collections.html#counter-objects
+ [Infinte Jukebox]: http://labs.echonest.com/Uploader/index.html
