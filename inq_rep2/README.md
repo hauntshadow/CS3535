@@ -60,4 +60,4 @@ The following code demonstrates how to use the Counter object in Python:
  
  [EchoNest Remix API]: http://echonest.github.io/remix/apidocs/
  [Python Counter objects]: https://docs.python.org/3/library/collections.html#counter-objects
- [Infinte Jukebox]: http://labs.echonest.com/Uploader/index.html
+ [Infinite Jukebox]: http://labs.echonest.com/Uploader/index.html
