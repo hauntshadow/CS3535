@@ -68,16 +68,14 @@ function called hist(x).  This function creates a histogram using an array of va
 Optional inputs include the number of bins for the histogram, the ranges of the bins, and any
 potential weights that you want for the bins.
 
-The following example will create a histogram:
+The following example will create a simple histogram from values in the "x" array:
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib.mlab as mlab
 
 x=[10,20,30,40,50,60,60,70,80,90]
 
-n, bins = plt.hist(x,9)
-plt.plot(bins)
+n = plt.hist(x,9)
 plt.show()
 ```
 
