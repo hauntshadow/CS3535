@@ -64,7 +64,7 @@ The following code demonstrates how to use the Counter object in Python:
  
 This documentation talks about how to create a histogram from an array of data.
 The pyplot module is inside of the matplotlib package.  Inside of this module is a
-function called hist(x).  This function creates a histogram using an array of values(x).
+function called hist(x).  This function creates a histogram using an array of values, being the "x" array.
 Optional inputs include the number of bins for the histogram, the ranges of the bins, and any
 potential weights that you want for the bins.
 
