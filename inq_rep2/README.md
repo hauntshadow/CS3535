@@ -73,7 +73,7 @@ The following example will create a simple histogram from values in the "x" arra
 import numpy as np
 import matplotlib.pyplot as plt
 
-x=[10,20,30,40,50,60,60,70,80,90]
+x=[10, 20, 30, 40, 50, 60, 60, 70, 80, 90]
 
 n = plt.hist(x,9)
 plt.show()
