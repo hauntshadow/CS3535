@@ -60,7 +60,7 @@ The following code demonstrates how to use the Counter object in Python:
  in the "a" array.  The order goes from most occurances to fewest occurances.
  This allows us to get the counts for the ranges of data that we need to graph.
  
- ####Mini-abstract and relevance of [?]
+####Mini-abstract and relevance of []
  
  Coming soon...
  [EchoNest Remix API]: http://echonest.github.io/remix/apidocs/
