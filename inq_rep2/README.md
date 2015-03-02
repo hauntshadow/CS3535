@@ -9,7 +9,7 @@ We want to graph the distances between every pair of segments in a song.
 #Resources
 1. [EchoNest Remix API]
 2. [Python Counter objects]
-3. []
+3. [Pyplot Histogram Docs]
 
 ####Mini-abstract and relevance of the [EchoNest Remix API]
  The [EchoNest Remix API] is the documentation for the module that allows us to extract a song's data.  This data can be obtained from either a song ID or a local audio file.  We are able to get the segments, as well as their data, with the [EchoNest Remix API].  In order to compare the segments, the [Infinite Jukebox] uses each segment's pitch, timbre, starting loudness, max loudness, and its duration.  The following code snippet shows how to get each of these pieces of data for a segment.
@@ -56,14 +56,32 @@ The following code demonstrates how to use the Counter object in Python:
      count[num] += 1
  print count
  ```
- This code prints out thenumber of occurances of each different number
+ This code prints out the number of occurances of each different number
  in the "a" array.  The order goes from most occurances to fewest occurances.
  This allows us to get the counts for the ranges of data that we need to graph.
  
-####Mini-abstract and relevance of []
+####Mini-abstract and relevance of [Pyplot Histogram Docs]
  
- Coming soon...
+This documentation talks about how to create a histogram from an array of data.
+The pyplot module is inside of the matplotlib package.  Inside of this module is a
+function called hist(x).  This function creates a histogram using an array of values(x).
+Optional inputs include the number of bins for the histogram, the ranges of the bins, and any
+potential weights that you want for the bins.
+
+The following example will create a histogram:
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+import matplotlib.mlab as mlab
+
+x=[10,20,30,40,50,60,60,70,80,90]
+
+n, bins = plt.hist(x,9)
+plt.plot(bins)
+plt.show()
+```
+
  [EchoNest Remix API]: http://echonest.github.io/remix/apidocs/
  [Python Counter objects]: https://docs.python.org/3/library/collections.html#counter-objects
  [Infinite Jukebox]: http://labs.echonest.com/Uploader/index.html
- []: 
+ [Pyplot Histogram Docs]: http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.hist 
