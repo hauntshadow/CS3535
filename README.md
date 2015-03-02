@@ -1,6 +1,20 @@
 # CS3535
 Music Informatics
 
+##h5_array
+This code takes a directory and searches itself and all subdirectories for .h5 files, and puts them into a list.
+Then, the code takes every segment from every file and gets the pitches, timbres, loudnesses, and duration of each segment.
+That data gets added to the end of a list as a Numpy array.  Then, that list gets converted to a Numpy array.
+The array is pickled and saved into a file, then the array is returned.  The ending array has the dimensions:
+
+(number of segments, 27)
+
+##inq_rep1
+This is a short report pertaining to the use of EyeD3 to get the information from a local .mp3 file's ID# tags.
+
+##inq_rep2
+Coming soon...
+
 ##mylimp
 This code simply takes the limp example from EchoNest's examples, and changes it so that
 each beat has the last tatum taken out of it.  The original EchoNest example had the last
