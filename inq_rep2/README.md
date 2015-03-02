@@ -1,24 +1,25 @@
 #Problem
-We want to graph the average tempo for songs grouped by genre, and sorted by year.
+We want to graph the distances between every pair of segments in a song.
 
 #Questions
-1. How do we get the tempo for a song?
-2. How do we get the genre for a song?
-3. How do we get the year for a song?
+1. How do we get the segments from a song?
+2. How do we get the data from each segment?
+3. How do we get the distance between two segments in a song?
+4. How do we graph a list of distances?
 
 #Resources
 1. [EchoNest Remix API]
-2. [eyeD3 API]
+2. 
 
 ####Mini-abstract and relevance of the [EchoNest Remix API]
- The [EchoNest Remix API] is the documentation for the module that allows us to extract statistics for a song.  This API has every detail about the EchoNest Remix project that is available in EchoNest's Remix package for Python.  One of these statistics is the tempo throughout a song.  This allows us to answer Question 1: How do we get the tempo for a song?
+ The [EchoNest Remix API] is the documentation for the module that allows us to extract a song's data.  This data can be obtained from either a song ID or a local audio file.  We are able to get the segments, as well as their data, with the [EchoNest Remix API].  In order to compare the segments, the [Infinite Jukebox] uses each segment's pitch, timbre, starting loudness, max loudness, and its duration.  The following code snippet shows how to get each of these pieces of data for a segment.
  
  The following code shows how to get the tempo from a local song:
  ```python
  import echonest.remix.audio as audio
  #Analyze the song and print the tempo. Output gives confidence and value.
  t = audio.AudioAnalysis("path to the local song")
- print t.tempo
+ segments = t.segments
  ```
  
 ####Mini-abstract and relevance of the [eyeD3 API]
@@ -40,4 +41,3 @@ We want to graph the average tempo for songs grouped by genre, and sorted by yea
  ```
  
  [EchoNest Remix API]: http://echonest.github.io/remix/apidocs/
- [eyeD3 API]: http://eyed3.nicfit.net/api/modules.html
