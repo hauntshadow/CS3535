@@ -1,7 +1,7 @@
 # h5_seg_to_array
 
-This program takes every segment in the passed in directory (and all of its subdirectories),
-and returns an array that contains every segment's features. These features are:
+This program takes a song, and compares every segment inside the song to every other segment. Each
+segment consists of :
 
 1. 12 Numbers for pitch
 2. 12 Numbers for timbre
@@ -9,22 +9,15 @@ and returns an array that contains every segment's features. These features are:
 4. 1 Number for the maximum loudness
 5. 1 Number for the duration
 
+These features are calculated, added together, and checked to see whether or not the distance between the two segments is below a certain threshold (80 for this program).  Then, the distances are graphed into a histogram, and the percentage below 80 is calculated.
+
 ###What This Program is Useful For
 
-This program is useful if you want to take a directory (or directories) full of .h5 files, and find
-out information about their segments.  Specifically, this program gets information about a segment's
-pitch, timbre, max loudness, starting loudness, and duration.  This could be used to find segment
-distance, similarly to the [Infinite Jukebox].
+This program is useful if you want to find out how self-similar a song is to itself.  This program compares segments inside the song similarly to the [Infinite Jukebox], as this program uses the same information, as well as the same weights.  However, this program will give you a percentage of distances that are below 80.  Plus, this program produces a histogram of the distances, and gives you no graphic displaying which segments are similar.
 
 ###The Inspiration Behind This Program
 
-The inspiration behind this program came from the [Million Song Dataset] and Dr. Parry.  The [Million Song Dataset]
-has a million songs in it, and they're all stored in .h5 files.  However, there is no good way to
-get the segment data that is in these .h5 files.  This program takes a directory, searches itself and
-all subdirectories for .h5 files, and then stores segment information pertaining to pitch, timbre, loudness max, 
-starting loudness, and duration.  This information is used to calculate distance between parameters in the
-[Infinite Jukebox], so Dr. Parry and I figured having code to generate this information, as well as store and load it, would
-be helpful.
+The [Infinite Jukebox] was the main inspiration behind this program.  The [Infinite Jukebox] uses 27 numbers to calculate the distance between 2 segments.  It also applies weights to these numbers to tune the comparisons to human perception.  This program uses the same numbers and the same weights, but instead calculates the percentage of the segments that are similar to another segment inside the song.  This is a gauge for how repetitive a song is.
 
 ###Code Explanation
 
