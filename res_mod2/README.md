@@ -1,4 +1,4 @@
-# h5_seg_to_array
+# res_mod2
 
 This program takes a song, and compares every segment inside the song to every other segment. Each
 segment consists of :
@@ -9,15 +9,15 @@ segment consists of :
 4. 1 Number for the maximum loudness
 5. 1 Number for the duration
 
-These features are calculated, added together, and checked to see whether or not the distance between the two segments is below a certain threshold (80 for this program).  Then, the distances are graphed into a histogram, and the percentage below 80 is calculated.
+These features are calculated, added together, and checked to see whether or not the distance between the two segments is below a certain threshold (45 for this program).  Then, the distances are graphed into a histogram, and the percentage below 45 is calculated.
 
 ###What This Program is Useful For
 
-This program is useful if you want to find out how self-similar a song is to itself.  This program compares segments inside the song similarly to the [Infinite Jukebox], as this program uses the same information, as well as the same weights.  However, this program will give you a percentage of distances that are below 80.  Plus, this program produces a histogram of the distances, and gives you no graphic displaying which segments are similar.
+This program is useful if you want to find out how self-similar a song is to itself.  This program compares segments inside the song similarly to the [Infinite Jukebox], as this program uses the same information, as well as the same weights.  However, this program will give you a percentage of distances that are below 45, as well as the percentage of segments who have at least 1 other segment that is at most 45 away from it.  Plus, this program produces a histogram of the distances, and gives you no graphic displaying which segments are similar.
 
 ###The Inspiration Behind This Program
 
-The [Infinite Jukebox] was the main inspiration behind this program.  The [Infinite Jukebox] uses 27 numbers to calculate the distance between 2 segments.  It also applies weights to these numbers to tune the comparisons to human perception.  This program uses the same numbers and the same weights, but instead calculates the percentage of the segments that are similar to another segment inside the song.  This is a gauge for how repetitive a song is.
+The [Infinite Jukebox] was the main inspiration behind this program.  The [Infinite Jukebox] uses 27 numbers to calculate the distance between 2 segments.  It also applies weights to these numbers to tune the comparisons to human perception.  This program uses the same numbers and the same weights, but instead calculates the percentage of the segments that are similar to another segment inside the song.  It also calculates the percentage of two-segment combinations that have a distance of at most 45.  This is a gauge for how repetitive a song is.
 
 ###Code Explanation
 
