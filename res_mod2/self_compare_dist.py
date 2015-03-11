@@ -1,14 +1,31 @@
-#
-# Self_compare_dist.py
-# Takes the segments of a song, compares them using the Infinite Jukebox's
-# fields and weights, and gives a percentage of segments that have another
-# segment within 45 of itself.  It also saves a histogram of these
-# distances.  The histogram only shows distances <= 800, and up to 600
-# matches in each bin.
-# Created by: Chris Smith
-# Date: 3.11.2015
-#
-#
+"""
+Self_compare_dist.py
+
+Usage: This program has a function called self_seg_compare().
+This function takes a track id (named as a parameter in the function),
+compares every segment to every other segment, and
+prints out the following information:
+
+    1. The number of segments that have one or more matches
+    2. The number of possible combinations that match
+    3. Saves a histogram that describes the combinations
+    4. Returns the adjacency list for the segments in the song
+
+Takes the segments of a song, compares them using the Infinite Jukebox's
+fields and weights, and gives a percentage of segments that have another
+segment within 45 of itself.  It also saves a histogram of these
+distances.  The histogram only shows distances <= 800, and up to 600
+matches in each bin.
+
+This program uses the weights and ideas on how to compare
+segments.  The following is a link to access the Infinite Jukebox:
+http://labs.echonest.com/Uploader/index.html
+
+Author: Chris Smith
+
+Date: 03.11.2015
+
+"""
 
 import matplotlib
 matplotlib.use("Agg")
@@ -16,7 +33,14 @@ import echonest.remix.audio as audio
 import matplotlib.pyplot as plt
 import scipy.spatial.distance as distance
 import numpy as np
-def main():
+
+'''
+Method that uses a track id to compare every segment with
+every other segment, supplies a histogram that shows
+the distances between segments (tuples of segments),
+and returns an adjacency list of segments in the song.
+'''
+def self_seg_compare():
     #Defines the threshold for comparisons
     thres = 45
     adj_list = []
@@ -89,7 +113,7 @@ def main():
     plt.axvline(thres, color = 'r', linestyle = 'dashed')
     #Make each tick on the x-axis correspond to the end of a bin.
     plt.xticks(range(0, int(np.amax(distances) + 2 * thres), thres))
-    #Make each tick on the y-axis correspond to each 25000th number up to the number of possible tuple combos.
+    #Make each tick on the y-axis correspond to each 25000th number up to the number of possible tuple combos / 2.
     plt.yticks(range(0, (len(segments) ** 2 - len(segments))/2 + 25000, 25000))
     plt.gcf().savefig('sim_histogram.png')
     return adj_list
