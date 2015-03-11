@@ -60,13 +60,12 @@ There is also an open function that takes a filename as a parameter.  This funct
 
 The following are links to the information that I found useful in constructing this module:
 
-[1] Stack Overflow: http://stackoverflow.com/questions/17730173/python-cant-get-full-path-name-of-file
+[1] Stack Overflow: http://stackoverflow.com/questions/12608788/changing-the-tick-frequency-on-x-or-y-axis-in-matplotlib
 
 [2] Million Song Dataset: http://labrosa.ee.columbia.edu/millionsong/pages/code
 
-[3] Numpy Dump Function: http://docs.scipy.org/doc/numpy/reference/generated/numpy.ndarray.dump.html
+[3] Pyplot API: http://matplotlib.org/api/pyplot_api.html
 
-[4] Numpy Load Function: http://docs.scipy.org/doc/numpy/reference/generated/numpy.load.html#numpy.load
 ###Package Dependencies
 
 Using h5_seg_to_array.py requires these packages:
