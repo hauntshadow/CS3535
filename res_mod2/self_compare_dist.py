@@ -20,7 +20,8 @@ def main():
     #Defines the threshold for comparisons
     thres = 45
     adj_list = []
-    count = 0
+    sim_seg_count = 0
+    sim_count = 0
     track_id = "TRAWRYX14B7663BAE0"
     audiofile = audio.AudioAnalysis(track_id)
     segments = audiofile.segments
@@ -53,8 +54,8 @@ def main():
     i_point = 0
     j_point = 0
     #Use i_point and j_point for the indices in the 2D distances array
-    for i in segs:
-        for j in segs:
+    for i_point in range(len(distances)):
+        for j_point in range(len(distances)):
             if i_point != j_point:
                 #Check to see if the distance between segment # i_point and
                 #segment # j_point is less than 45
@@ -70,11 +71,14 @@ def main():
     #Get the count of the similarities in the adjacency lists
     for i in adj_list:
         if len(i) > 0:
-            count = count + len(i);
+            sim_count = sim_count + len(i);
+            sim_seg_count = sim_seg_count + 1
             #print i, "\n"
-    print "Num of sims: ", count, " out of ", len(segments) ** 2 - len(segments)
-    print "Percentage of segments that are similar: ", (count / float(len(segments) ** 2 - len(segments))) * 100, "%"
-    print "This takes out comparisons between a segment and itself."
+    print "Num of segments with at least 1 match: ", sim_seg_count, " out of", len(segments)
+    print "Percentage of segments with at least 1 match: ", (sim_seg_count / float(len(segments)) * 100), "%"
+    print "Num of similar tuples: ", sim_count, " out of ", len(segments) ** 2 - len(segments)
+    print "Percentage of possible tuples that are similar: ", (sim_count / float(len(segments) ** 2 - len(segments))) * 100, "%"
+    print "Note:This takes out comparisons between a segment and itself."
     #Get the number of bins.  Calculated by taking the max range and dividing by 50
     bins = int(np.amax(distances)) / thres
     #Make the histogram with titles and axis labels.  Plot the line x=thres for visual comparison.
