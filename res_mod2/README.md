@@ -21,86 +21,101 @@ The [Infinite Jukebox] was the main inspiration behind this program.  The [Infin
 
 ###Code Explanation
 
-The h5_files_to_np_array(dir, filename) function is the function that gets the segments and stores the data.
-The function starts off by calling get_h5_files(dir) to get the list of .h5 files that are in the directory 'dir',
-or any subdirectories [1].  Then, we set the counter to 0, which counts the number of files parsed, and initialize
-an empty list for the array of segment data.
+The self_seg_compare() function is a function that takes a song (via Track ID), computes the differences between every pair of segments that are not the same segment, generates a histogram of the differences, and returns the adjacency list of the segments.  The differences are calculated from an algorithm used in the [Infinite Jukebox] [1].  The following is a snippet of code that shows how the segment data is obtaine, as well as how the segment differences are calculated:
 
-Afterwards, we do this code to get the data, create the array for the segment, and append that array to the list:
 ```python
-for file in list:
-        song = getters.open_h5_file_read(file)
-        seg_append = np.array(getters.get_segments_pitches(song))
-        seg_append = np.c_[ seg_append, np.array(getters.get_segments_timbre(song))]
-        seg_append = np.c_[seg_append, np.array(getters.get_segments_loudness_max(song))]
-        seg_append = np.c_[seg_append, np.array(getters.get_segments_loudness_start(song))]
-        start = np.array(getters.get_segments_start(song))
-        for i in range(0,len(start)-1):    
-            if i != (len(start) - 1):
-                start[i] = start[i+1] - start[i]
-        start[len(start) - 1] = getters.get_duration(song) - start[len(start) - 1]
-        seg_append = np.c_[seg_append, start]
-        #Add the arrays to the bottom of the list
-        seg_array.extend(seg_append.tolist())
-        song.close()
-        num_done = num_done + 1
+    audiofile = audio.AudioAnalysis(track_id)
+    segments = audiofile.segments
+    #Get each segment's array of comparison data
+    segs = np.array(segments.pitches)
+    segs = np.c_[segs, np.array(segments.timbre)]
+    segs = np.c_[segs, np.array(segments.loudness_max)]
+    segs = np.c_[segs, np.array(segments.loudness_begin)]
+    segs = np.c_[segs, np.ones(len(segs))]
+    ...
+    #Finish getting the comparison data
+    for i in range(len(segs)):
+        segs[i][26] = segments[i].duration
+    #Get the euclidean distance for the pitch vectors, then multiply by 10
+    distances = distance.cdist(segs[:,:12], segs[:,:12], 'euclidean')
+    for i in range(len(distances)):
+        for j in range(len(distances)):
+            distances[i][j] = 10 * distances[i][j]
+    #Get the euclidean distance for the timbre vectors, adding it to the
+    #pitch distance
+    distances = distances + distance.cdist(segs[:,12:24], segs[:,12:24], 'euclidean')
+    #Get the rest of the distance calculations, adding them to the previous
+    #calculations.
+    for i in range(len(distances)):
+        for j in range(len(distances)):
+            distances[i][j] = distances[i][j] + abs(segs[i][24] - segs[j][24])
+            distances[i][j] = distances[i][j] + abs(segs[i][25] - segs[j][25]) + abs(segs[i][26] - segs[j][26]) * 100
 ```
 
-We open the file, then put pitch values in a new array (indices 0-11) using get_segments_pitches [2], timbre values in 12-23 using get_segments_timbres [2], max loudness in index 24 using get_segments_loudness_max [2], and starting loudness in index 25 using get_segments_loudness_start [2].  However, [hdf5_getters] does not have a function that returns the
-segments' durations.  Therefore, we must get the starting times for each segment using get_segments_start [2], and if it's not the last segment, make the segment's duration (received by using get_duration [2]) equal to the next segment's start time minus the current segment's start time.  Then, the final segment has its value set to the duration of the song minus the segment's start time.
+The segments' pitches are converted into an array.  Then, the timbre arrays are added onto the end of the rows.  Afterwards, the maximum loudness, beginning loudness, and a column of 1s are added on.  The column of ones are then changed to each segment's duration.
 
-Then, we put each segment duration at index 26, and extend the list to include the new segments' data that were just created.
-We then close the current song, increase the counter by 1, and repeat that whole process for each .h5 file in the list.  Every 500th .h5 file parsed results in printing a statement saying that the number of files parsed is num_dome out of len(list).
+The euclidean distances are found from the first 12 columns of every pair of possible segments (the pitches), and then multiplied by 10, as in the [Infinite Jukebox] [1].  The distance for every pair of segments obtained this way is added to the euclidean distance from columns 13-24, plus the differences in the max loudness, starting loudness, and durations * 100 [1].
 
-After the list is completed, we convert the list into a [Numpy] array, and dump a pickle of that array into a file called 'filename' (the parameter passed in) using the dump function [3].  We print the number of segments in the array, and return the array.
+Afterwards, we get the adjacency list by seeing if the difference between any two segments is at most 45.  Then, we do the following code to get a histogram of the distances:
 
-There is also an open function that takes a filename as a parameter.  This function calls the load function on the filename [4], and returns the [Numpy] array that the load function returns.
+```python
+    #Get the number of bins.  Calculated by taking the max range and dividing by 50
+    bins = int(np.amax(distances)) / thres
+    #Make the histogram with titles and axis labels.  Plot the line x=thres for visual comparison.
+    plt.hist(distances.ravel(), bins = bins)
+    plt.title('Distances between Tuples of Segments')
+    plt.xlabel('Distances')
+    plt.ylabel('Number of occurrences')
+    plt.axvline(thres, color = 'r', linestyle = 'dashed')
+    #Make each tick on the x-axis correspond to the end of a bin.
+    plt.xticks(range(0, int(np.amax(distances) + 2 * thres), thres))
+    #Make each tick on the y-axis correspond to each 25000th number up to the number of possible tuple combos / 2.
+    plt.yticks(range(0, (len(segments) ** 2 - len(segments))/2 + 25000, 25000))
+    plt.gcf().savefig('sim_histogram.png')
+```
+
+This portion of the code gets the number of bins by dividing the maximum value inside of the distances 2D array by the threshold, whose default is 45.  In order to plot every combination on one axis, the array must be raveled, which returns a flattened (one-dimensional) [NumPy] array [2].  The title of the histogram, as well as axis labels are put onto the histogram.  Then, in order to show how much of the distances are less than the threshold, a red, dashed, vertical line is plotted [3].  The tick marks on the x and y axes are then modified to the threshold and the potential combinations * 25000 respectively [4].  Finally, the current figure is saved into a file called 'sim_histogram.png' [3].
 
 ###References
 
 The following are links to the information that I found useful in constructing this module:
 
-[1] Stack Overflow: http://stackoverflow.com/questions/12608788/changing-the-tick-frequency-on-x-or-y-axis-in-matplotlib
+[1] Infinite Jukebox: http://labs.echonest.com/Uploader/index.html
 
-[2] Million Song Dataset: http://labrosa.ee.columbia.edu/millionsong/pages/code
+[2] Numpy Ravel: http://docs.scipy.org/doc/numpy/reference/generated/numpy.ravel.html
 
 [3] Pyplot API: http://matplotlib.org/api/pyplot_api.html
 
+[4] Stack Overflow: http://stackoverflow.com/questions/12608788/changing-the-tick-frequency-on-x-or-y-axis-in-matplotlib
+
 ###Package Dependencies
 
-Using h5_seg_to_array.py requires these packages:
+Using self_compare_dist.py requires these packages:
 
-1. os (part of Python)
+1. [EchoNest.Remix]
 2. [Numpy]
-3. [hdf5_getters]
+3. [Matplotlib]
+4. [SciPy]
 
 ###Example Use
 
 To use this program (assuming you have the previously mentioned packages), you can do
-the following to get and save the array in a file:
+the following to get the adjacency list of a song and save a histogram of the differences:
 
 ```python
-import h5_seg_to_array as h
-#Get the files, generate the array, and store the array in the file
-a = h.h5_files_to_np_array("path to the directory with .h5 files in it", "destination filename")
-#Print out the second segment in the dataset
+import self_compare_dist.py as comp
+#Compare every pair of segments, save a histogram of the differences, and return the adjacency list
+a = comp.self_seg_compare()
+#Print out the segment indices who are within a distance of 45 to the second segment.
 print a[1]
 ```
 
-To load the file, you need to do the following:
-```python
-import h5_seg_to_array as h
-#Load the file into a variable
-loadedArray = h.open("filename that holds the numpy array")
-#Print out the second segment's duration in the dataset
-print loadedArray[1][26]
-```
-
-
 [Numpy]: https://pypi.python.org/pypi/numpy#downloads
 
-[hdf5_getters]: https://github.com/tbertinmahieux/MSongsDB/blob/master/PythonSrc/hdf5_getters.py
+[EchoNest.Remix]: http://echonest.github.io/remix/apidocs/
 
 [Infinite Jukebox]: http://labs.echonest.com/Uploader/index.html
 
-[Million Song Dataset]: http://labrosa.ee.columbia.edu/millionsong
+[Matplotlib]: http://matplotlib.org/contents.html
+
+[SciPy]: http://matplotlib.org/index.html
