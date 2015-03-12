@@ -21,7 +21,7 @@ The [Infinite Jukebox] was the main inspiration behind this program.  The [Infin
 
 ###Code Explanation
 
-The self_seg_compare() function is a function that takes a song (via Track ID), computes the differences between every pair of segments that are not the same segment, generates a histogram of the differences, and returns the adjacency list of the segments.  The differences are calculated from an algorithm used in the [Infinite Jukebox] [1].  The following is a snippet of code that shows how the segment data is obtaine, as well as how the segment differences are calculated:
+The self_seg_compare() function is a function that takes a song (via Track ID), computes the differences between every pair of segments that are not the same segment, generates a histogram of the differences, and returns the adjacency list of the segments.  The differences are calculated from the [Infinite Jukebox]'s method of calculating differences [1].  The following is a snippet of code that shows how the segment data is obtaine, as well as how the segment differences are calculated:
 
 ```python
     audiofile = audio.AudioAnalysis(track_id)
@@ -54,7 +54,7 @@ The self_seg_compare() function is a function that takes a song (via Track ID), 
 
 The segments' pitches are converted into an array.  Then, the timbre arrays are added onto the end of the rows.  Afterwards, the maximum loudness, beginning loudness, and a column of 1s are added on.  The column of ones are then changed to each segment's duration.
 
-The euclidean distances are found from the first 12 columns of every pair of possible segments (the pitches), and then multiplied by 10, as in the [Infinite Jukebox] [1].  The distance for every pair of segments obtained this way is added to the euclidean distance from columns 13-24, plus the differences in the max loudness, starting loudness, and durations * 100 [1].
+The euclidean distances are found from the first 12 columns of every pair of possible segments (the pitches), and then multiplied by 10, as the [Infinite Jukebox] does [1].  The distance for every pair of segments obtained this way is added to the euclidean distance from columns 13-24, plus the differences in the max loudness, starting loudness, and durations * 100 [1].
 
 Afterwards, we get the adjacency list by seeing if the difference between any two segments is at most 45.  Then, we do the following code to get a histogram of the distances:
 
