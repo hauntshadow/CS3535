@@ -60,7 +60,7 @@ def self_seg_compare():
         adj_list.append([])
     #Finish getting the comparison data
     for i in range(len(segs)):
-        segs[i][26] = 100 * segments[i].duration
+        segs[i][26] = segments[i].duration
     #Get the euclidean distance for the pitch vectors, then multiply by 10
     distances = distance.cdist(segs[:,:12], segs[:,:12], 'euclidean')
     for i in range(len(distances)):
@@ -74,7 +74,7 @@ def self_seg_compare():
     for i in range(len(distances)):
         for j in range(len(distances)):
             distances[i][j] = distances[i][j] + abs(segs[i][24] - segs[j][24])
-            distances[i][j] = distances[i][j] + abs(segs[i][25] - segs[j][25]) + abs(segs[i][26] - segs[j][26])
+            distances[i][j] = distances[i][j] + abs(segs[i][25] - segs[j][25]) + abs(segs[i][26] - segs[j][26]) * 100
     i_point = 0
     j_point = 0
     #Use i_point and j_point for the indices in the 2D distances array
