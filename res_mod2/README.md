@@ -21,7 +21,7 @@ The [Infinite Jukebox] was the main inspiration behind this program.  The [Infin
 
 ###Code Explanation
 
-The self_seg_compare() function is a function that takes a song (via Track ID), computes the differences between every pair of segments that are not the same segment, generates a histogram of the differences, and returns the adjacency list of the segments.  The differences are calculated similarly to the [Infinite Jukebox]'s method of calculating differences between two segments [1].  The following is a snippet of code that shows how the segment data is obtaine, as well as how the segment differences are calculated:
+The self_seg_compare() function is a function that takes a song (via Track ID), computes the differences between every pair of segments that are not the same segment, generates a histogram of the differences, and returns the adjacency list of the segments.  The differences are calculated similarly to the [Infinite Jukebox]'s method of calculating differences between two segments [1].  The following is a snippet of code that shows how the segment data is obtained, as well as how the segment differences are calculated:
 
 ```python
     audiofile = audio.AudioAnalysis(track_id)
