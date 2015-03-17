@@ -101,7 +101,7 @@ def self_seg_compare():
     print "Num of segments with at least 1 match: ", sim_seg_count, " out of", len(segments)
     print "Percentage of segments with at least 1 match: ", (sim_seg_count / float(len(segments)) * 100), "%"
     print "Num of similar tuples: ", sim_count, " out of ", (len(segments) * (len(segments) + 1)) / 2 - (len(segments)/2)
-    print "Percentage of possible tuples that are similar: ", (sim_count / float((len(segments) * (len(segments) + 1)) / 2 - (len(segments)/2)) * 100, "%"
+    print "Percentage of possible tuples that are similar: ", sim_count / float((len(segments) * (len(segments) + 1)) / 2 - (len(segments)/2)) * 100, "%"
     print "Note:This takes out comparisons between a segment and itself."
     #Get the number of bins.  Calculated by taking the max range and dividing by 50
     bins = int(np.amax(distances)) / thres
