@@ -23,3 +23,7 @@ beat (or group of tatums) taken out of each bar.
 This code simply takes each bar and gets the first segment out of each bar in a song. This
 code was also an EchoNest example.  However, this code was modified to get the first segment
 out of each bar, instead of retrieving the first beat out of each bar.
+##res_mod2
+This code takes a song (received by the EchoNest track id), and gets an adjacency list for every segment.
+An adjacency list for a segment represents the segments that are within a certain distance (threshold) from 
+that segment.  The code also saves a histogram of the distances between every pair of segments.
