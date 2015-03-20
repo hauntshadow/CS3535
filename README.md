@@ -15,6 +15,10 @@ This is a short report pertaining to the use of EyeD3 to get the information fro
 ##inq_rep2
 This short inquiry deals with how to get data from a song, then counting and graphing data.
 
+##inq_rep3
+This inquiry report talks about how to graph a set of data after putting that data into groups.
+The number of items in each group is also printed.
+
 ##mylimp
 This code simply takes the limp example from EchoNest's examples, and changes it so that
 each beat has the last tatum taken out of it.  The original EchoNest example had the last
