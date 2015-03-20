@@ -12,8 +12,8 @@ This graph represents the number of items equal or greater than the lower limit,
 2. [Using Counter() in Python to build histogram]
 3. [Counter Objects]
 
-####Mini-abstract and relevance of the [Python math ModuleAPI]
- The [Python math ModuleAPI] is the documentation I found when finding out how to get the floor of a number.
+####Mini-abstract and relevance of the [Python math Module API]
+ The [Python math Module API] is the documentation I found when finding out how to get the floor of a number.
  Math.floor(num) returns the floor of that number.  That will be useful when computing the data's lower limit.
  
  The following code shows how to round a number (x) to the nearest value below it that is a multiple of y:
@@ -30,7 +30,7 @@ This bit of code essentially answers Question 1 for us: "How do we get the data 
 
 Python's Collections Module has a tool known as [Counter].  These objects simply count over an iterable collection, and return the number of occurrences of every item in the collection.  This can be useful in producing the bars in the graph.
 
-The following code, according to the source, will plot a bar plot using the values from the Counter object:
+The following code, according to the source, will plot a bar plot using the values from the [Counter] object:
  
  ```python
  from collections import Counter
