@@ -48,9 +48,12 @@ def two_song_comp(fileA, fileB):
     thres = 45
     nameA = os.path.basename(os.path.splitext(fileA)[0])
     nameB = os.path.basename(os.path.splitext(fileB)[0])
-    adj_listA = adj_listB = []
-    sim_seg_countA = sim_seg_countB = 0
-    sim_countA = sim_countB = 0
+    adj_listA = []
+    adj_listB = []
+    sim_seg_countA = 0
+    sim_seg_countB = 0
+    sim_countA = 0
+    sim_countB = 0
     audiofileA = audio.AudioAnalysis(fileA)
     audiofileB = audio.AudioAnalysis(fileB)
     segmentsA = audiofileA.segments
@@ -81,7 +84,7 @@ def two_song_comp(fileA, fileB):
     #Get the euclidean distance for the pitch vectors, then multiply by 10
     distances = distance.cdist(segsA[:,:12], segsB[:,:12], 'euclidean')
     for i in range(len(distances)):
-        for j in range(len(distances)):
+        for j in range(len(distances[i])):
             distances[i][j] = 10 * distances[i][j]
     #Get the euclidean distance for the timbre vectors, adding it to the
     #pitch distance
@@ -89,14 +92,14 @@ def two_song_comp(fileA, fileB):
     #Get the rest of the distance calculations, adding them to the previous
     #calculations.
     for i in range(len(distances)):
-        for j in range(len(distances)):
+        for j in range(len(distances[i])):
             distances[i][j] = distances[i][j] + abs(segsA[i][24] - segsB[j][24])
             distances[i][j] = distances[i][j] + abs(segsA[i][25] - segsB[j][25]) + abs(segsA[i][26] - segsB[j][26]) * 100
     i_point = 0
     j_point = 0
     #Use i_point and j_point for the indices in the 2D distances array
     for i_point in range(len(distances)):
-        for j_point in range(len(distances)):
+        for j_point in range(len(distances[i])):
             #Check to see if the distance between segment # i_point and
             #segment # j_point is less than 45
             if abs(distances[i_point][j_point]) <= thres:
@@ -137,14 +140,16 @@ def two_song_comp(fileA, fileB):
     plt.xticks(range(0, int(np.amax(distances) + 2 * thres), thres))
     #Make each tick on the y-axis correspond to each 25000th number up to the number of possible tuple combos / 2.
     plt.yticks(range(0, (len(segmentsA) * len(segmentsB))/2 + 25000, 25000))
-    plt.gcf().savefig(nameA + 'and' + nameB + '_histogram.png')
+    plt.gcf().savefig('Histograms/' + nameA + 'and' + nameB + '_histogram.png')
     plt.close()
 
 def dir_comp(dir):
     files = get_mp3_files(dir)
     for f1 in files:
         for f2 in files:
-            if not os.path.isfile(os.path.basename(os.path.splitext(f1)[0])) and not os.path.isfile(os.path.basename(os.path.splitext(f2)[0])):
+            nameA = os.path.basename(os.path.splitext(f1)[0])
+            nameB = os.path.basename(os.path.splitext(f2)[0])
+            if not os.path.isfile('Histograms/' + nameA + 'and' + nameB + '_histogram.png') and not os.path.isfile('Histograms/' + nameB + 'and' + nameA + '_histogram.png'):
                 two_song_comp(f1, f2)
                 print "Comparison completed!"
     print "Finished."
