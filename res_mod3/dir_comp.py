@@ -41,7 +41,8 @@ def get_mp3_files(dir):
 '''
 Method that takes two .mp3 files and compares every segment within song A to 
 every segment in song B and supplies a histogram that shows
-the distances between segments (tuples of segments)
+the distances between segments (tuples of segments).  Also supplies some data
+about the songs that were parsed.
 '''
 def two_song_comp(fileA, fileB):
     #Defines the threshold for comparisons
@@ -143,6 +144,9 @@ def two_song_comp(fileA, fileB):
     plt.gcf().savefig('Histograms/' + nameA + 'and' + nameB + '_histogram.png')
     plt.close()
 
+'''
+Method that runs the comparison on every pair of .mp3 files in a directory
+'''
 def dir_comp(dir):
     files = get_mp3_files(dir)
     for f1 in files:
