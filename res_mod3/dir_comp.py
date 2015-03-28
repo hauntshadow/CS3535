@@ -18,7 +18,6 @@ Date: 03.27.2015
 """
 import matplotlib
 matplotlib.use("Agg")
-import pyechonest
 import echonest.remix.audio as audio
 import matplotlib.pyplot as plt
 import scipy.spatial.distance as distance
