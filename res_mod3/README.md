@@ -140,7 +140,7 @@ To use this program (assuming you have the previously mentioned packages), you c
 the following to run the dir_comp code on a directory:
 
 ```python
-import dir_comp.py as comp
+import dir_comp as comp
 #Compare every pair of segments in 2 songs in a directory, save a histogram of the differences, and print statistics
 a = comp.dir_comp("Directory to .mp3 files")
 ```
