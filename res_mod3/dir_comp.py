@@ -26,8 +26,7 @@ import os
 import numpy as np
 
 '''
-Method that takes a directory, searches that directory, as well as any
-subdirectories, and returns a list of every .h5 file.
+Method that takes a directory, searches that directory, and returns a list of every .mp3 file in it.
 '''
 def get_mp3_files(dir):
     list = []
