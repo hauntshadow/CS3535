@@ -157,6 +157,5 @@ def dir_comp(dir):
             if not os.path.isfile('Histograms/' + nameA + 'and' + nameB + '_histogram.png') and not os.path.isfile('Histograms/' + nameB + 'and' + nameA + '_histogram.png'):
                 two_song_comp(f1, f2)
                 print "Comparison completed!"
-                count = count + 1
                 print count, " out of ", total
     print "Finished."
