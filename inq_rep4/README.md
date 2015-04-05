@@ -2,8 +2,9 @@
 We want to see how long it takes for a song to get compared to a group of segments.
 
 #Questions
-1. How do we find the amount of time it took for segments to get compared?
-2. How do we find out the amount of time it took for one segment to get compared to another?
+1. How do we find out the amount of time it took for one segment to get compared to another?
+2. How do we find the amount of time it took for a group of segments to get compared to a song?
+
 
 #Resources
 1. [Python Time API]
@@ -20,6 +21,9 @@ We want to see how long it takes for a song to get compared to a group of segmen
  stop = time.time()
  print stop-start
  ```
+ 
+ This essentially answers both questions that we have: "How long would it take to compare one segment to another? What about
+ comparing one song to a group of segments?"
 
  [Python Time API]: https://docs.python.org/2/library/time.html
  
