@@ -6,7 +6,7 @@ We want to see how long it takes for a song to get compared to a group of segmen
 2. How do we find the amount of time it took for a group of segments to get compared to a song?
 
 
-#Resources
+#Resource
 1. [Python Time API]
 
 ####Mini-abstract and relevance of the [Python Time API]
