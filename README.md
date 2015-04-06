@@ -21,7 +21,7 @@ The number of items in each group is also printed.
 
 ##inq_rep4
 This report describes how to use the Python Time module in order to time a line (or lines) of code.  It uses time.time() to
-achieve this.
+achieve this.  It also briefly looks at SciKit Learn's K-Means Clustering method.
 
 ##mylimp
 This code simply takes the limp example from EchoNest's examples, and changes it so that
