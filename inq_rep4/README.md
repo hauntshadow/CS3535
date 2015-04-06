@@ -26,7 +26,7 @@ We want to see how long it takes for a song to get compared to a group of segmen
  This essentially answers the first two questions that we have: "How long would it take to compare one segment to another? 
  What about comparing one song to a group of segments?"
  
- ##Mini-abstract and relevance of the [Scikit Learn Clustering API]
+ <h4>Mini-abstract and relevance of the [Scikit Learn Clustering API]</h4>
  
  This source is Scikit Learn's answer to our question 3: "How do we use K-Means Clustering in Python?"
  By importing sklearn.cluster, you have access to many algorithms, including the K-Means clustering algorithm.
