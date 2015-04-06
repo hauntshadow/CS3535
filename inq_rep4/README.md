@@ -1,5 +1,6 @@
 #Problem
 We want to see how long it takes for a song to get compared to a group of segments.
+Our end goal is to optimize comparisons in the database.
 
 #Questions
 1. How do we find out the amount of time it took for one segment to get compared to another?
