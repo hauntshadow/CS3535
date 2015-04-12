@@ -1,7 +1,30 @@
+"""
+timing.py
+
+Usage: In the functions following this, the parameters are described as follows:
+
+filename: the file that contains segment data
+
+This file must have been a NumPy array of segment data that was saved.  It is loaded through NumPy's load function.
+
+Each segment array is in the following format:
+
+[12 values for segment pitch, 12 values for segment timbre, 1 value for loudness
+max, 1 value for loudness start, and 1 value for the segment duration]
+
+Author: Chris Smith
+
+Date: 04.11.2015
+"""
+
 import time
 import scipy.spatial.distance as distance
 import numpy as np
 
+'''
+Method that takes a file of segment data (a 2D NumPy array), and compares the first 850 segments to 1000, 10000, 100000, and
+1000000 segments.  The results are ignored, as this function times the comparisons.
+'''
 def comp_time(filename):
     seg_array = np.load(filename)
     song = seg_array[:850:].copy()
