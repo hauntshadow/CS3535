@@ -40,7 +40,7 @@ The following is an example snippet that shows how the [Python time] module is u
 ```
 
 This piece of code simply takes the song (first 850 segments), and compares them to the first 1000 segments using
-Euclidean distance and the cdist function[2].  
+Euclidean distance and the cdist function [2].  
 
 Then, we do this for the following amounts of segments:
 1. 1000 segments
