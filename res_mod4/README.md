@@ -53,7 +53,7 @@ to see if the times are linear as predicted.
 
 After running the comp_time function on the array created from the Million Song Subset, I received these values:
 <table><tr><td>
-Segment count</td><td> Time in seconds</td></tr>
+Segment count</td><td>Time in seconds</td></tr>
 <tr><td>1000</td><td>0.048688</td></tr>
 <tr><td>10000</td><td>1.157556</td></tr>
 <tr><td>100000</td><td>11.679945</td></tr>
@@ -64,17 +64,12 @@ all of the selected segments.
 
 That gives us these values:
 
-|Segment count | Time in seconds|
-
-|=========== | =============|
-
-<p>|1000          | 0.00005728     |</p>
-
-<p>|10000         | 0.00136183     |</p>
-
-<p>|100000        | 0.01374111     |</p>
-
-<p>|1000000       | 0.19263379     |</p>
+<table><tr><td>
+Segment count</td><td>Time in seconds</td></tr>
+<tr><td>1000</td><td>0.00005728</td></tr>
+<tr><td>10000</td><td>0.00136183</td></tr>
+<tr><td>100000</td><td>0.01374111</td></tr>
+<tr><td>1000000</td><td>0.19263379</td></tr></table>
 
 If segment comparisons are linear, then the times should have their decimal points shifted by one. For example, from 10000 to
 100000, if the decimal is shifted to the left by 1 in the 10000 row, then if it is linear, it would nearly equal the 100000
