@@ -1,6 +1,6 @@
 # res_mod4
 
-This program is designed to take an array of song segment data, and time how long it takes to calculatethe distance between pairs of segments.  Each segment consists of :
+This program is designed to take an array of song segment data, and time how long it takes to calculate the distance between pairs of segments.  Each segment consists of :
 
 1. 12 Numbers for pitch
 2. 12 Numbers for timbre
@@ -72,15 +72,15 @@ That gives us these values:
 
 |Segment count | Time in seconds|
 
-|============= | ===============|
+|=========== | =============|
 
-|1000          | 0.00005728     |
+<p>|1000          | 0.00005728     |</p>
 
-|10000         | 0.00136183     |
+<p>|10000         | 0.00136183     |</p>
 
-|100000        | 0.01374111     |
+<p>|100000        | 0.01374111     |</p>
 
-|1000000       | 0.19263379     |
+<p>|1000000       | 0.19263379     |</p>
 
 If segment comparisons are linear, then the times should have their decimal points shifted by one. For example, from 10000 to
 100000, if the decimal is shifted to the left by 1 in the 10000 row, then if it is linear, it would nearly equal the 100000
