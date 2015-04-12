@@ -52,18 +52,12 @@ This allows us to get the amount of time to run each of these specified segment 
 to see if the times are linear as predicted.
 
 After running the comp_time function on the array created from the Million Song Subset, I received these values:
-
-|Segment count | Time in seconds|
-
-|============= | ===============|
-
-|1000          | 0.048688       |
-
-|10000         | 1.157556       |
-
-|100000        | 11.679945      |
-
-|1000000       | 163.738721     |
+<table><tr><td>
+Segment count</td><td> Time in seconds</td></tr>
+<tr><td>1000</td><td>0.048688</td></tr>
+<tr><td>10000</td><td>1.157556</td></tr>
+<tr><td>100000</td><td>11.679945</td></tr>
+<tr><td>1000000</td><td>163.738721</td></tr></table>
 
 By getting these values, we can divide the number of seconds by 850 to see how long it took for one segment to be compared to
 all of the selected segments.
