@@ -43,3 +43,7 @@ This code takes a directory of songs, and prints out statistics related to how w
 It tells you the number of segments in each song that are similar to the others, as well as the percentage of possible matches.
 It also saves histograms of each comparison, and it will not compare the two songs if they have a histogram displaying their
 relationship already on file.
+
+##res_mod4
+This code times how long the comparison of segment data takes.  It takes the first 850 segments in an array of segments, and
+compares them to 1000, 10000, 100000, and 1000000 segments.  Afterwards, it prints out how long it took to do these comparisons.
