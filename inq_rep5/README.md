@@ -35,6 +35,9 @@ only need to check the segments in the same cluster as the one we are comparing 
  seperate the digits into ten clusters, where each cluster should represent a unique digit.  This example
  will give us an example to follow when implementing the K-Means algorithm for segment analysis.
  
+ This code also displays a way to see how well our algorithm runs, given that we use Principal Compnent Analysis to figure
+ this out.  This could be useful, but it may be too time consuming, given that we will have over 8 million segments to analyze.
+ 
  This example is written in Python, so it shows that there is an example of a K-Means implementation written in Python, 
  which is our answer to the third question.
 
