@@ -23,6 +23,13 @@ The number of items in each group is also printed.
 This report describes how to use the Python Time module in order to time a line (or lines) of code.  It uses time.time() to
 achieve this.  It also briefly looks at SciKit Learn's K-Means Clustering method.
 
+##inq_rep5
+This inquiry report details two excellent resources for implementing a K-Means algorithm in Python.  The first is a 
+presentation that gives a detailed explanation, as well as an example, of how to use the K-Means algorithm.  It also
+describes when to use K-Means, as well as when not to use it.  The second resource is an example implementation that 
+David Kale, Scott Shuffler, and I wrote last year.  It uses an implementation of the K-Means algorithm to classify
+handwritten digits.
+
 ##mylimp
 This code simply takes the limp example from EchoNest's examples, and changes it so that
 each beat has the last tatum taken out of it.  The original EchoNest example had the last
