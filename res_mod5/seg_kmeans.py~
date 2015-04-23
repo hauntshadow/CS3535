@@ -38,15 +38,6 @@ def score(centers, centroids):
     plt.xticks(ticks[0::50])
     plt.gcf().savefig('Results/countHistogram.png')
     plt.close()
-    plt.hist(maxes.ravel(), bins = np.amax(maxes) / 50)
-    plt.title('Max distance in cluster')
-    plt.xlabel('Max distances')
-    plt.ylabel('Number of occurrences')
-    ticks = range(0, int(np.amax(maxes)))
-    plt.xticks(ticks[0::50])
-    plt.gcf().savefig('Results/maxdistHistogram.png')
-    plt.close()
-
 
     print "Counts of each cluster:"
     print counts
