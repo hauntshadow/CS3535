@@ -8,84 +8,116 @@ This program is designed to take an array of song segment data, and run a K-Mean
 4. 1 Number for the maximum loudness
 5. 1 Number for the duration
 
-This program is designed to cluster datasets using the K-Means clustering algorithm provided by [Scikit-Learn].  The parameters of this program are as follows:
+This program is designed to cluster datasets using the K-Means clustering algorithm provided by [Scikit-Learn].  The
+parameters of this program are as follows:
 
 1. The filename of the pickled dataset
 2. The number of clusters desired
 3. The maximum number of iterations for this clustering
 
-There are two methods that can be called in order to cluster the data.  The seg_kmeans function takes all three parameters, and clusters the data once.  The KMeans function does the same thing 5 times, using scikit-learn's functions.
+There are two methods that can be called in order to cluster the data.  The seg_kmeans function takes all three parameters,
+and clusters the data once.  The KMeans function does the same thing 5 times, using scikit-learn's functions.
 
 **NOTE: This program needs a pickled numpy array of data to work.  An example of this was done in the h5_array directory.
+**NOTE: This program also needs a Results directory where the seg_kmeans.py file is.  This allows histograms to save there.
 
 ###What This Program is Useful For
 
-This program is useful for clustering datasets.  This program calls [Scikit-Learn]'s K-Means class in order to run the clustering algorithm with the fastest time.  K-Means allows you to group big datasets together quickly and somewhat efficiently.  This program also uses the multi-threading option for [Scikit-learn]'s K-Means class.  This increases efficientcy of finding the best clustering results.
+This program is useful for clustering datasets.  This program calls [Scikit-Learn]'s K-Means class in order to run the
+clustering algorithm with the fastest time.  K-Means allows you to group big datasets together quickly and somewhat
+efficiently.  This program also uses the multi-threading option for [Scikit-learn]'s K-Means class.  This increases
+efficientcy of finding the best clustering results.
 
 ###The Inspiration Behind This Program
 
-The main inspiration of this program is trying to reduce the time it takes to compare a segment with every other segment in a database.  By doing this algorithm, we can essentially rule out any segment comparisons that involve a segment that is not in the same cluster as the first segment.  This rules out the majority of the database.  For example, if we have 10000 clusters, we can approximately rule out 9999/10000 of the database, as the two segments in question would not be in the same cluster.
+The main inspiration of this program is trying to reduce the time it takes to compare a segment with every other segment in a
+database.  By doing this algorithm, we can essentially rule out any segment comparisons that involve a segment that is not in
+the same cluster as the first segment.  This rules out the majority of the database.  For example, if we have 10000 clusters,
+we can approximately rule out 9999/10000 of the database, as the two segments in question would not be in the same cluster.
 
 ###Code Explanation
 
-The comp_time(filename) function is a function that takes a pickled array of segment data, and computes distances between
-the first 850 segments and groups of segments.  The first 850 segments represent the average number of segments in a song, as
-per the Million Song Subset, which is a part of the [Million Song Dataset].  Since 850 is the rough average segment count
-for a song, we'll consider that to be a song.  Then, the code uses the [Python time] module to calculate time [1].
-The following is an example snippet that shows how the [Python time] module is used:
+The seg_kmeans(filename, clusters, maxattempts) function is a function that takes a pickled array of segment data, and runs a
+K-Means clustering algorithm on it.  This K-Means algorithm collectively seperates the data into a defined number of clusters
+(labeled as the clusters parameter).  It will continue to try to cluster data and update the center points in those clusters
+for a predetermined number of iterations (defined as the maxattempts parameter).  This code computes the distance from a
+segment to each center point, and then appends the segment to the list of the closest center point, as seen below [1]:
 
 ```python
-    t1 = time.time()
-    distance.cdist(song, seg_array[:1000:],'euclidean')
-    t2 = time.time()
-    print "Time for comparisons between a song and 1000 segments: " + str(t2-t1)
+    for row in range(len(data)):
+        closest = classify(data[row], size, centroids)
+        numlist[closest].append(data[row])
 ```
 
-This piece of code simply takes the song (first 850 segments), and compares them to the first 1000 segments using
-Euclidean distance and the cdist function [2].  
+By doing this, we can put every similar segment into a list (which represents a cluster).  After doing this, we copy the
+center points, and compute the new centers for the clustered results.  If the center points do not change, then we stop, as
+the dataset has converged.  Else, we continue to do this until it either converges, or it reaches the iteration limit. The
+following code shows how we determine whether or not the data has converged [1]:
 
-Then, we do this for the following amounts of segments:
-1. 1000 segments
-2. 10000 segments
-3. 100000 segments
-4. 1000000 segments
+```python
+    #Redo the centroids
+    copyroids = centroids.copy()
+    for i in range(size):
+        if len(numlist[i]) > 0:
+            centroids[i].put(range(27), np.average(numlist[i], axis=0).astype(np.int32))
+    attempt += 1
+    if np.any(centroids-copyroids) == 0:
+        stop = True
+```
 
-This allows us to get the amount of time to run each of these specified segment counts.  Then, we can compare them together
-to see if the times are linear as predicted.
+After the dataset has converged or reached its iteration limit, we can compute the score of how well it did.  This is done by
+looking to see how similar the clusters are in size, as well as the maximum distance from the center point inside of each
+cluster.  This is done by the following code:
 
-After running the comp_time function on the array created from the Million Song Subset, I received these values:
-<table><tr><td>
-Segment count</td><td>Time in seconds</td></tr>
-<tr><td>1000</td><td>0.048688</td></tr>
-<tr><td>10000</td><td>1.157556</td></tr>
-<tr><td>100000</td><td>11.679945</td></tr>
-<tr><td>1000000</td><td>163.738721</td></tr></table>
+```python
+def score(centers, centroids):
+    counts = np.zeros(len(centers))
+    maxes = np.zeros(len(centers))
+    index = 0
+    np.asarray(centers)
+    for i in range(len(centers)):
+        counts[index] = len(centers[index])
+        index += 1
+    for i in range(len(centers)):
+        maxes[i] = distance.cdist(centers[i], np.asarray(centroids[i]).reshape((1,27)), 'euclidean').max()
+```
 
-By getting these values, we can divide the number of seconds by 850 to see how long it took for one segment to be compared to
-all of the selected segments.
+In this case, the "centers" are the lists of segments pertaining to each center point, while the "centroids" are the actual
+center points themselves.  After doing this, we create and save histograms of the cluster sizes and max distance in each
+cluster into a Results directory.
 
-That gives us these values:
+The KMeans(filename, clusters, iter) function is a function that simply calls the KMeans class in [Scikit-Learn] [2].  The
+data is loaded from the file, then the time is taken using [Python time]'s time() function.  Then, [Scikit-Learn]'s KMeans
+class is called (located in the cluster package).  We use "clusters" and "iter" for the number of clusters and iterations
+respectively, but we also have verbose mode turned on and max CPU usage turned on [2].  Verbose mode allows us to see the
+iteration results, while the max CPU usage allows the data to get fit to the algorithm quicker.  We also limit the number of
+different seeds to 5, as this means that the algorithm is ran 5 times with 5 different results.  Then, the best results are
+taken [2].  We also print out how long it took, as well as the final inertia of the dataset.  Then, we save the cluster
+centers, labels that describe which segments are in which clusters, and the final inertia into a file called
+"clusterdata.npy" that is located in the Results directory.
 
-<table><tr><td>
-Segment count</td><td>Time in seconds</td></tr>
-<tr><td>1000</td><td>0.00005728</td></tr>
-<tr><td>10000</td><td>0.00136183</td></tr>
-<tr><td>100000</td><td>0.01374111</td></tr>
-<tr><td>1000000</td><td>0.19263379</td></tr></table>
+The following code shows how the KMeans(filename, clusters, iter) function is set up:
 
-If segment comparisons are linear, then the times should have their decimal points shifted by one. For example, from 10000 to
-100000, if the decimal is shifted to the left by 1 in the 10000 row, then if it is linear, it would nearly equal the 100000
-row.  Although the comparison between the 1000 and 10000 rows are not quite linear, the other rows are fairly close to each
-other, so the act of comparing groups of segments should be linear.
-
+```python
+def KMeans(filename, clusters, iter):
+    data = np.load(filename)
+    data.resize(1000000, 27)
+    t0 = time.time()
+    estimator = cluster.KMeans(n_clusters=clusters, max_iter=iter, verbose=1, n_jobs=-1)
+    estimator.fit(data)
+    print('%.2fs    %i'
+          % ((time.time() - t0), estimator.inertia_))
+    saveddata = [estimator.cluster_centers_, estimator.labels_, estimator.inertia_]
+    np.save("Results/clusterdata.npy", saveddata)
+```
 
 ###References
 
 The following are links to the information that I found useful in constructing this module:
 
-[1] scikit-learn KMeans Class API: http://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html
+[1] SSTEM Digit Classification Extension: https://github.com/kaledj/sstem_python_stuff/blob/master/digit_classification.py
 
-[2] SSTEM Digit Classification Extension: https://github.com/kaledj/sstem_python_stuff/blob/master/digit_classification.py
+[2] scikit-learn KMeans Class API: http://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html
 
 ###Package Dependencies
 
