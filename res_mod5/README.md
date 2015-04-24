@@ -1,6 +1,6 @@
-# res_mod4
+# res_mod5
 
-This program is designed to take an array of song segment data, and time how long it takes to calculate the distance between pairs of segments.  Each segment consists of :
+This program is designed to take an array of song segment data, and run a K-Means clustering algorithm on the dataset.  Each segment consists of :
 
 1. 12 Numbers for pitch
 2. 12 Numbers for timbre
@@ -8,21 +8,23 @@ This program is designed to take an array of song segment data, and time how lon
 4. 1 Number for the maximum loudness
 5. 1 Number for the duration
 
-This program compares a song of 850 segments to groups of 1000, 10000, 100000, and 1000000 segments.  This allows us to see
-whether or not comparing segments is a linear task or not.
+This program is designed to cluster datasets using the K-Means clustering algorithm provided by [Scikit-Learn].  The parameters of this program are as follows:
 
-**NOTE: This program needs a pickled array of segment data to work.  An example of this was done in the h5_array directory.
+1. The filename of the pickled dataset
+2. The number of clusters desired
+3. The maximum number of iterations for this clustering
+
+There are two methods that can be called in order to cluster the data.  The seg_kmeans function takes all three parameters, and clusters the data once.  The KMeans function does the same thing 5 times, using scikit-learn's functions.
+
+**NOTE: This program needs a pickled numpy array of data to work.  An example of this was done in the h5_array directory.
 
 ###What This Program is Useful For
 
-This program is useful to find out the time constraint for comparing groups of segments (or songs).  Finding out the complexity
-of the data can help determine the time costs of a program dealing with song/segment comparisons.
+This program is useful for clustering datasets.  This program calls [Scikit-Learn]'s K-Means class in order to run the clustering algorithm with the fastest time.  K-Means allows you to group big datasets together quickly and somewhat efficiently.  This program also uses the multi-threading option for [Scikit-learn]'s K-Means class.  This increases efficientcy of finding the best clustering results.
 
 ###The Inspiration Behind This Program
 
-The main inspiration of this program is learning the efficiency of programs.  We need to see if the time that it takes
-to compare segments can be reduced.  This can dramatically increase the performance of music-based programs that utilize
-segment comparisons.
+The main inspiration of this program is trying to reduce the time it takes to compare a segment with every other segment in a database.  By doing this algorithm, we can essentially rule out any segment comparisons that involve a segment that is not in the same cluster as the first segment.  This rules out the majority of the database.  For example, if we have 10000 clusters, we can approximately rule out 9999/10000 of the database, as the two segments in question would not be in the same cluster.
 
 ###Code Explanation
 
@@ -81,33 +83,39 @@ other, so the act of comparing groups of segments should be linear.
 
 The following are links to the information that I found useful in constructing this module:
 
-[1] Python Time API: https://docs.python.org/2/library/time.html
+[1] scikit-learn KMeans Class API: http://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html
 
-[2] Scipy cdist API: http://docs.scipy.org/doc/scipy/reference/generated/scipy.spatial.distance.cdist.html
+[2] SSTEM Digit Classification Extension: https://github.com/kaledj/sstem_python_stuff/blob/master/digit_classification.py
 
 ###Package Dependencies
 
-Using timing.py requires these packages:
+Using seg_kmeans.py requires these packages:
 
 1. [Python time]
 2. [Numpy]
 3. [SciPy]
+4. [Matplotlib]
+5. [Scikit-Learn]
 
 ###Example Use
 
 To use this program (assuming you have the previously mentioned packages), you can do
-the following to run the comp_time code (assuming you have a pickled array of segment data):
+the following to run the seg_kmeans package of code (assuming you have a pickled array of segment data):
 
 ```python
-import timing as t
-#Compare every pair of segments in 2 songs in a directory, save a histogram of the differences, and print statistics
-a = t.comp_time("Path to the pickled array of data")
+import seg_kmeans as s
+#Run the non-scikit learn version
+a = s.seg_kmeans("Path to the pickled array of data", number of clusters, number of iterations)
+#Run the scikit learn version
+a = s.KMeans("Path to the pickled array of data", number of clusters, number of iterations)
 ```
 
 [Numpy]: https://pypi.python.org/pypi/numpy#downloads
 
-[Million Song Dataset]: http://labrosa.ee.columbia.edu/millionsong/
+[Matplotlib]: http://matplotlib.org/index.html
 
 [Python time]: https://docs.python.org/2/library/time.html
 
-[SciPy]: http://matplotlib.org/index.html
+[SciPy]: http://www.scipy.org/
+
+[Scikit-Learn]: http://scikit-learn.org/stable/
