@@ -139,9 +139,9 @@ the following to run the seg_kmeans package of code (assuming you have a pickled
 ```python
 import seg_kmeans as s
 #Run the non-scikit learn version
-a = s.seg_kmeans("Path to the pickled array of data", number of clusters, number of iterations)
+s.seg_kmeans("Path to the pickled array of data", number of clusters, number of iterations)
 #Run the scikit learn version
-a = s.KMeans("Path to the pickled array of data", number of clusters, number of iterations)
+s.KMeans("Path to the pickled array of data", number of clusters, number of iterations)
 ```
 
 [Numpy]: https://pypi.python.org/pypi/numpy#downloads
