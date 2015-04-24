@@ -153,4 +153,4 @@ a = comp.dir_comp("Directory to .mp3 files")
 
 [Matplotlib]: http://matplotlib.org/contents.html
 
-[SciPy]: http://matplotlib.org/index.html
+[SciPy]: http://www.scipy.org/
