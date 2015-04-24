@@ -20,7 +20,8 @@ and clusters the data once.  The KMeans function does the same thing 5 times, us
 
 ***NOTE: This program needs a pickled numpy array of data to work.  An example of this was done in the h5_array directory.*
 
-***NOTE: This program also needs a Results directory where the seg_kmeans.py file is.  This allows histograms to save there.*
+***NOTE: This program also needs a Results directory where the seg_kmeans.py file is.  This allows histograms and clustering 
+results to save there.*
 
 ###What This Program is Useful For
 
