@@ -4,9 +4,7 @@ import numpy as np
 from numpy import random
 import scipy.spatial.distance as distance
 from sklearn import metrics
-from sklearn.cluster import MiniBatchKMeans
-from sklearn.preprocessing import scale
-from sklearn.decomposition import PCA
+from sklearn import cluster
 import matplotlib.pyplot as plt
 import time
 
@@ -90,3 +88,13 @@ def seg_kmeans(filename, size, maxattempts):
             stop = True
     score(numlist, centroids)
 
+def KMeans(filename, clusters, iter):
+    data = np.load(filename)
+    data.resize(1000000, 27)
+    t0 = time.time()
+    estimator = cluster.KMeans(n_clusters=clusters, max_iter=iter, verbose=1, n_jobs=-1)
+    estimator.fit(data)
+    print('%.2fs    %i'
+          % ((time.time() - t0), estimator.inertia_))
+    saveddata = [estimator.cluster_centers_, estimator.labels_, estimator.inertia_]
+    np.save("Results/clusterdata.npy", saveddata)
