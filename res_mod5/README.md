@@ -86,7 +86,7 @@ In this case, the "centers" are the lists of segments pertaining to each center 
 center points themselves.  After doing this, we create and save histograms of the cluster sizes and max distance in each
 cluster into a Results directory.
 
-The KMeans(filename, clusters, iter) function is a function that simply calls the KMeans class in [Scikit-Learn] [2].  The
+The KMeans(filename, clusters, iter) function is a function that simply calls the KMeans class in [Scikit-Learn].  The
 data is loaded from the file, then the time is taken using [Python time]'s time() function.  Then, [Scikit-Learn]'s KMeans
 class is called (located in the cluster package).  We use "clusters" and "iter" for the number of clusters and iterations
 respectively, but we also have verbose mode turned on and max CPU usage turned on [2].  Verbose mode allows us to see the
