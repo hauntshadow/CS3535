@@ -16,19 +16,19 @@ def classify(x, size, centroids):
 
 def score(centers, centroids):
     counts = np.zeros(len(centers))
-    #centroids = np.zeros(len(centers))
     maxes = np.zeros(len(centers))
     index = 0
     np.asarray(centers)
     for i in range(len(centers)):
-        #np.asarray(centers[i])
-        #for j in range(len(centers[i])):
-        #    np.asarray(centers[i][j])
         counts[index] = len(centers[index])
         index += 1
     for i in range(len(centers)):
         maxes[i] = distance.cdist(centers[i], np.asarray(centroids[i]).reshape((1,27)), 'euclidean').max()
-    plt.hist(counts.ravel(), bins = np.amax(counts) / 50)
+    if np.amax(counts)/50 >= 5:
+        bins = np.amax(counts) / 50
+    else:
+        bins = 5
+    plt.hist(counts.ravel(), bins = bins)
     plt.title('Number of members per cluster')
     plt.xlabel('Number of members')
     plt.ylabel('Number of occurrences')
@@ -36,7 +36,12 @@ def score(centers, centroids):
     plt.xticks(ticks[0::50])
     plt.gcf().savefig('Results/countHistogram.png')
     plt.close()
-    plt.hist(maxes.ravel(), bins = np.amax(maxes) / 50)
+    if np.amax(maxes)/50 >= 5:
+        bins = np.amax(maxes) / 50
+    else:
+        bins = 5
+ 
+    plt.hist(maxes.ravel(), bins = bins)
     plt.title('Max distance in cluster')
     plt.xlabel('Max distances')
     plt.ylabel('Number of occurrences')
@@ -56,7 +61,7 @@ def score(centers, centroids):
 def seg_kmeans(filename, size, maxattempts):
     #Initialize everything
     data = np.load(filename)
-    data.resize(10000,27)
+    data.resize(1000,27)
     centroids = np.empty((size, 27))
     copyroids = np.empty((size, 27))
     for i in range(0, size):
@@ -87,12 +92,12 @@ def seg_kmeans(filename, size, maxattempts):
         if np.any(centroids-copyroids) == 0:
             stop = True
     score(numlist, centroids)
+    np.save("Results/clusterdata.npy", numlist)
 
 def KMeans(filename, clusters, iter):
     data = np.load(filename)
-    data.resize(1000000, 27)
     t0 = time.time()
-    estimator = cluster.KMeans(n_clusters=clusters, max_iter=iter, verbose=1, n_jobs=-1)
+    estimator = cluster.KMeans(n_clusters=clusters, n_init = 5, max_iter=iter, verbose=1, n_jobs=5)
     estimator.fit(data)
     print('%.2fs    %i'
           % ((time.time() - t0), estimator.inertia_))
