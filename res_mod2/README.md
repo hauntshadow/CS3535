@@ -118,4 +118,4 @@ print a[1]
 
 [Matplotlib]: http://matplotlib.org/contents.html
 
-[SciPy]: http://matplotlib.org/index.html
+[SciPy]: http://www.scipy.org/
