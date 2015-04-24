@@ -110,4 +110,4 @@ a = t.comp_time("Path to the pickled array of data")
 
 [Python time]: https://docs.python.org/2/library/time.html
 
-[SciPy]: http://matplotlib.org/index.html
+[SciPy]: http://www.scipy.org/
