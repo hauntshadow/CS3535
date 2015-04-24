@@ -54,3 +54,6 @@ relationship already on file.
 ##res_mod4
 This code times how long the comparison of segment data takes.  It takes the first 850 segments in an array of segments, and
 compares them to 1000, 10000, 100000, and 1000000 segments.  Afterwards, it prints out how long it took to do these comparisons.
+
+##res_mod5
+This code uses the K-Means algorithm in order to seperate each segment into groups.  It takes a pickled array of segments (each segment has 27 values), and seperates them into clusters.  These clusters have center points that are readjusted for every iteration (the averages of every segment in that cluster).  This code also saves histograms of max distances from the center, as well as the count of segments in each cluster.
