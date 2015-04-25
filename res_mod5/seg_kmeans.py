@@ -1,5 +1,4 @@
 """
-
 seg_kmeans.py
 
 This code performs K-Means clustering on a dataset passed in as a pickled

@@ -1,3 +1,26 @@
+"""
+
+seg_kmeans.py
+
+This code performs K-Means clustering on a dataset passed in as a pickled
+NumPy array.
+
+There is a function (seg_kmeans) that performs K-Means on
+the dataset not using another class's stuff.  There is another function
+(KMeans) that performs K-Means on the dataset by using Scikit-Learn's
+K-Means class inside of the cluster package.
+Both functions have the follwoing parameters:
+
+    1. filename: the file that contains the dataset (must be a pickled array)
+    2. clusters: the number of clusters to generate
+    3. iter: the max number of iterations to use
+
+This also saves the results to an output in the Results folder.
+
+Author: Chris Smith
+
+Version: 4.19.2015
+"""
 import matplotlib
 matplotlib.use("Agg")
 import numpy as np
@@ -8,12 +31,18 @@ from sklearn import cluster
 import matplotlib.pyplot as plt
 import time
 
+'''
+Figures out which cluster center that the segment x is closest to.
+'''
 def classify(x, size, centroids):
     list = np.zeros(size)
     for i in range(size):
         list[i] = np.sqrt(np.sum((centroids[i] - x) ** 2))
     return np.argmin(list)
-
+'''
+Figures out the cluster member counts and the max distances from the centers in each cluster.
+Also, histograms are generated.
+'''
 def score(centers, centroids):
     counts = np.zeros(len(centers))
     maxes = np.zeros(len(centers))
@@ -58,33 +87,37 @@ def score(centers, centroids):
     print maxes
     print "------------------------------"
 
-def seg_kmeans(filename, size, maxattempts):
+'''
+Performs K-Means clustering on a dataset of music segments without using a pre-made function.
+Saves the results to a .npy file in the Results folder.
+'''
+def seg_kmeans(filename, clusters, iter):
     #Initialize everything
     data = np.load(filename)
-    centroids = np.empty((size, 27))
-    copyroids = np.empty((size, 27))
-    for i in range(0, size):
+    centroids = np.empty((clusters, 27))
+    copyroids = np.empty((clusters, 27))
+    for i in range(0, clusters):
         sample = random.randint(0, len(data))
         centroids[i] = data[sample]
     #Start the algorithm
     stop = False
     attempt = 1
     numlist = []
-    while not stop and attempt <= maxattempts :
+    while not stop and attempt <= iter:
         #Initialize the lists
         numlist = []
-        for i in range(size):
+        for i in range(clusters):
             numlist.append([])
         print "Attempt Number: %d" % attempt
         #Classify stuff
         for row in range(len(data)):
-            closest = classify(data[row], size, centroids)
+            closest = classify(data[row], clusters, centroids)
             numlist[closest].append(data[row])
             if row % 10000 == 0:
                 print row
         #Redo the centroids
         copyroids = centroids.copy()
-        for i in range(size):
+        for i in range(clusters):
             if len(numlist[i]) > 0:
                 centroids[i].put(range(27), np.average(numlist[i], axis=0).astype(np.int32))
         attempt += 1
@@ -93,6 +126,10 @@ def seg_kmeans(filename, size, maxattempts):
     score(numlist, centroids)
     np.save("Results/clusterdata.npy", numlist)
 
+'''
+Performs the K-Means clustering algorithm that Scikit-Learn's cluster package provides.
+Saves the output into a file called clusterdata.npy.  This file is located in the Results folder.
+'''
 def KMeans(filename, clusters, iter):
     data = np.load(filename)
     t0 = time.time()
