@@ -41,7 +41,7 @@ def score(centers, centroids):
     else:
         bins = 5
  
-    plt.hist(maxes.ravel(), bins = np.amax(maxes) / 50)
+    plt.hist(maxes.ravel(), bins = bins)
     plt.title('Max distance in cluster')
     plt.xlabel('Max distances')
     plt.ylabel('Number of occurrences')
@@ -61,7 +61,6 @@ def score(centers, centroids):
 def seg_kmeans(filename, size, maxattempts):
     #Initialize everything
     data = np.load(filename)
-    data.resize(1000,27)
     centroids = np.empty((size, 27))
     copyroids = np.empty((size, 27))
     for i in range(0, size):
