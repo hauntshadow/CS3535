@@ -23,6 +23,8 @@ and clusters the data once.  The KMeans function does the same thing 5 times, us
 ***NOTE: This program also needs a Results directory where the seg_kmeans.py file is.  This allows histograms and clustering 
 results to save there.*
 
+***WARNING: If the dataset is too large, then you will get a MemoryError.*
+
 ###What This Program is Useful For
 
 This program is useful for clustering datasets.  This program calls [Scikit-Learn]'s K-Means class in order to run the
@@ -35,7 +37,7 @@ efficientcy of finding the best clustering results.
 The main inspiration of this program is trying to reduce the time it takes to compare a segment with every other segment in a
 database.  By doing this algorithm, we can essentially rule out any segment comparisons that involve a segment that is not in
 the same cluster as the first segment.  This rules out the majority of the database.  For example, if we have 10000 clusters,
-we can approximately rule out 9999/10000 of the database, as the two segments in question would not be in the same cluster.
+we can rule out approximately 9999/10000 of the database, as the two segments in question would not be in the same cluster.
 
 ###Code Explanation
 
