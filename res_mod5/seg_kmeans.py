@@ -93,6 +93,8 @@ Saves the results to a .npy file in the Results folder.
 def seg_kmeans(filename, clusters, iter):
     #Initialize everything
     data = np.load(filename)
+    #Use the first 1 million segments
+    data.resize(1000000,27)
     centroids = np.empty((clusters, 27))
     copyroids = np.empty((clusters, 27))
     for i in range(0, clusters):
