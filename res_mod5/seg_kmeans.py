@@ -133,6 +133,8 @@ Saves the output into a file called clusterdata.npy.  This file is located in th
 '''
 def KMeans(filename, clusters, iter):
     data = np.load(filename)
+    data.resize(100000,27)
+    print "Loaded data"
     t0 = time.time()
     estimator = cluster.KMeans(n_clusters=clusters, n_init = 5, max_iter=iter, verbose=1, n_jobs=5)
     estimator.fit(data)
