@@ -1,6 +1,8 @@
 # CS3535
 Music Informatics
 
+##ResultCheck
+This directory contains the programs I wrote to check my results, and compare the K-Means results to the ground truths.
 ##h5_array
 This code takes a directory and searches itself and all subdirectories for .h5 files, and puts them into a list.
 Then, the code takes every segment from every file and gets the pitches, timbres, loudnesses, and duration of each segment.
